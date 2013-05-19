@@ -1,0 +1,12 @@
+
+%h1 AdSense Earnings
+
+.earnings-container
+  .earnings
+    - @total_earnings.to_s.each_char do |digit|
+      - if digit == "."
+        .decimal= digit
+      - else
+        .digit= digit
+
+%h2= params[:period].gsub(/_/, " ")
