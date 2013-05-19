@@ -44,8 +44,8 @@ class User
   include DataMapper::Resource
   property :id, Serial
   property :uid, String
-  property :access_token, String
-  property :refresh_token, String
+  property :access_token, String, length: 255
+  property :refresh_token, String, length: 255
   property :created_at, DateTime
 end
 
