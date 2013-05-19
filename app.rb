@@ -63,9 +63,13 @@ enable :sessions
 helpers do
 
   def initialize_google_client
-    client = Google::APIClient.new
+    client = Google::APIClient.new \
+      :application_name => "Google AdSense Status Board Widget",
+      :application_version => "1.0 Beta"
     client.authorization.access_token = current_user.access_token
     client.authorization.refresh_token = current_user.refresh_token
+    client.authorization.client_id = settings.consumer_key
+    client.authorization.client_secret = settings.consumer_secret
     client
   end
 
