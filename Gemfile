@@ -15,6 +15,7 @@ gem "open-uri-cached"
 
 gem "haml"
 gem "sass"
+gem "coffee-script"
 
 gem "omniauth"
 gem "omniauth-google-oauth2"

@@ -12,9 +12,10 @@ require "dm-migrations"
 require "base64"
 require "multi_json"
 require "open-uri"
+require "coffee-script"
 require "sass"
-require 'google/api_client'
-require 'raven'
+require "google/api_client"
+require "raven"
 
 # Configuration --------------------------------------------------------------
 
@@ -164,4 +165,10 @@ get "/styles/:stylesheet.css" do |stylesheet|
   content_type "text/css"
   template = File.read(File.join(settings.styles_path, "#{stylesheet}.sass"))
   Sass::Engine.new(template).render
+end
+
+get "/scripts/:script.js" do |script|
+  content_type "application/javascript"
+  template = File.read(File.join(settings.scripts_path, "#{script}.coffee"))
+  CoffeeScript.compile(template)
 end

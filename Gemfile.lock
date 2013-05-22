@@ -19,7 +19,11 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    backports (3.3.0)
+    backports (3.3.1)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.2)
     data_objects (0.10.12)
       addressable (~> 2.1)
     dm-core (1.0.2)
@@ -41,6 +45,8 @@ GEM
     do_sqlite3 (0.10.12)
       data_objects (= 0.10.12)
     eventmachine (1.0.3)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     extlib (0.9.16)
     faraday (0.8.7)
       multipart-post (~> 1.1)
@@ -54,7 +60,7 @@ GEM
       multi_json (>= 1.0.0)
       signet (>= 0.4.4)
       uuidtools (>= 2.1.0)
-    haml (4.0.2)
+    haml (4.0.3)
       tilt
     hashie (2.0.5)
     httpauth (0.2.0)
@@ -113,6 +119,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  coffee-script
   dm-core
   dm-migrations
   dm-postgres-adapter
