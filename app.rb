@@ -27,6 +27,7 @@ set :database_url, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/database.db"
 # Internal Configuration -----------------------------------------------------
 
 set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
+set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
 
 # Sentry Setup (Optional) ----------------------------------------------------
 

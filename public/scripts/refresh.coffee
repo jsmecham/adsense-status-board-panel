@@ -1,19 +1,18 @@
 
-var refreshInterval = 60 * 1000 // 60 Seconds
+refreshInterval = 60 * 1000 # 60 Seconds
 
-function refresh()
-{
-  var xhr = new XMLHttpRequest();
-  xhr.onload = handleRefresh;
-  xhr.open("get", window.location.href, true);
-  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-  xhr.send();
-}
+refresh ->
+  xhr = new XMLHttpRequest
 
-function handleRefresh()
-{
+  xhr.onload = handleRefresh
+  xhr.open("get", window.location.href, true)
+  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+
+  xhr.send
+
+
+handleRefresh ->
   document.querySelector(".widget").innerHTML = this.response
   setTimeout(refresh, refreshInterval)
-};
 
 setTimeout(refresh, refreshInterval)
