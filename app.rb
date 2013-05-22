@@ -132,7 +132,11 @@ get "/earnings/:period" do |period|
   response = JSON.parse(result.body)
   @total_earnings = response["totals"][0]
 
-  haml :earnings, :layout => :widget
+  if request.xhr?
+    haml :earnings, :layout => false
+  else 
+    haml :earnings, :layout => :widget
+  end
 
 end
 

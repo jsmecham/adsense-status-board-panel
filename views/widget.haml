@@ -2,13 +2,10 @@
 
 %html
   %head
-
     %meta{ :charset => "utf-8" }
-    %meta{ "http-equiv" => "Refresh", :content => 60 }
-
+    %script{ src: "/scripts/refresh.js" }
     %link{ :rel => "stylesheet", :href => "/styles/widget.css" }
 
   %body
-
     .widget
       = yield
