@@ -7,11 +7,14 @@ require "sinatra/reloader" if development?
 # Configuration --------------------------------------------------------------
 
 configure do
+
   set :consumer_key, ENV["GOOGLE_CLIENT_ID"]
   set :consumer_secret, ENV["GOOGLE_CLIENT_SECRET"]
   set :database_url, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/database.db"
   set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
   set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
+  set :session_secret, ENV["SESSION_SECRET"] unless ENV["SESSION_SECRET"].nil?
+
 end
 
 # DataMapper / Model Setup ---------------------------------------------------
