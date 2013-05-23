@@ -108,6 +108,7 @@ get "/earnings/:period" do |period|
     }
 
   response = JSON.parse(result.body)
+  logger.info response.inspect
   @total_earnings = response["totals"][0]
 
   if request.xhr?
