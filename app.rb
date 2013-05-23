@@ -1,21 +1,8 @@
+#
+# Google AdSense Widget for Status Board
+#
 
-require "sinatra"
-require "sinatra/json"
 require "sinatra/reloader" if development?
-require "active_support/core_ext"
-require "omniauth"
-require "omniauth-google-oauth2"
-require "dm-core"
-require "dm-sqlite-adapter" if development?
-require "dm-postgres-adapter"
-require "dm-migrations"
-require "base64"
-require "multi_json"
-require "open-uri"
-require "coffee-script"
-require "sass"
-require "google/api_client"
-require "raven"
 
 # Configuration --------------------------------------------------------------
 

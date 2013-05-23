@@ -3,29 +3,43 @@ source "http://rubygems.org"
 
 ruby "2.0.0"
 
-gem "rack-ssl"
+gem "rack-ssl", group: :production
+gem "activesupport", require: "active_support/core_ext"
 
+#
+# Sinatra
+#
 gem "sinatra"
 gem "sinatra-contrib"
 
-gem "activesupport"
+#
+# Persistence
+#
+gem "dm-core"
+gem "dm-migrations"
+gem "dm-timestamps"
+gem "dm-sqlite-adapter", group: :development
+gem "dm-postgres-adapter", group: :production
 
-gem "multi_json"
-gem "open-uri-cached"
-
+#
+# Assets
+#
 gem "haml"
 gem "sass"
 gem "coffee-script"
 
+#
+# Authentication
+#
 gem "omniauth"
 gem "omniauth-google-oauth2"
 
-gem "dm-core"
-gem "dm-sqlite-adapter", :group => :development
-gem "dm-postgres-adapter"
-gem "dm-migrations"
+#
+# Google API Client
+#
+gem "google-api-client", "~> 0.6.3", require: "google/api_client"
 
-gem "signet", "~> 0.4.5"
-gem "google-api-client", "~> 0.6.3"
-
-gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
+#
+# Sentry (for Error Reporting)
+#
+gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git"

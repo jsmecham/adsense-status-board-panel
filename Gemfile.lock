@@ -40,6 +40,8 @@ GEM
     dm-sqlite-adapter (1.0.2)
       dm-do-adapter (~> 1.0.2)
       do_sqlite3 (~> 0.10.2)
+    dm-timestamps (1.0.2)
+      dm-core (~> 1.0.2)
     do_postgres (0.10.12)
       data_objects (= 0.10.12)
     do_sqlite3 (0.10.12)
@@ -86,7 +88,6 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    open-uri-cached (0.0.5)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -124,15 +125,13 @@ DEPENDENCIES
   dm-migrations
   dm-postgres-adapter
   dm-sqlite-adapter
+  dm-timestamps
   google-api-client (~> 0.6.3)
   haml
-  multi_json
   omniauth
   omniauth-google-oauth2
-  open-uri-cached
   rack-ssl
   sass
   sentry-raven!
-  signet (~> 0.4.5)
   sinatra
   sinatra-contrib
