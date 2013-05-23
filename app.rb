@@ -6,23 +6,12 @@ require "sinatra/reloader" if development?
 
 # Configuration --------------------------------------------------------------
 
-set :base_url, "https://adsense-status-board-widget.herokuapp.com"
-set :consumer_key, ENV["GOOGLE_CLIENT_ID"]
-set :consumer_secret, ENV["GOOGLE_CLIENT_SECRET"]
-set :database_url, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/database.db"
-
-# Internal Configuration -----------------------------------------------------
-
-set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
-set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
-
-# Sentry Setup (Optional) ----------------------------------------------------
-
-if ENV["SENTRY_DSN"]
-  Raven.configure do |config|
-    config.dsn = ENV["SENTRY_DSN"]
-  end
-  use Raven::Rack
+configure do
+  set :consumer_key, ENV["GOOGLE_CLIENT_ID"]
+  set :consumer_secret, ENV["GOOGLE_CLIENT_SECRET"]
+  set :database_url, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/database.db"
+  set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
+  set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
 end
 
 # DataMapper / Model Setup ---------------------------------------------------
@@ -31,15 +20,16 @@ DataMapper.setup(:default, settings.database_url)
 
 class User
   include DataMapper::Resource
+
   property :id, Serial
   property :uid, String
   property :access_token, String, length: 255
   property :refresh_token, String, length: 255
   property :created_at, DateTime
+  property :updated_at, DateTime
 end
 
-DataMapper.finalize
-DataMapper.auto_upgrade!
+DataMapper.finalize.auto_upgrade!
 
 # OmniAuth -------------------------------------------------------------------
 
@@ -53,7 +43,7 @@ helpers do
 
   def initialize_google_client
     client = Google::APIClient.new \
-      :application_name => "Google AdSense Status Board Widget",
+      :application_name => "AdSense Status Board Widget",
       :application_version => "1.0 Beta"
     client.authorization.access_token = current_user.access_token
     client.authorization.refresh_token = current_user.refresh_token
@@ -134,7 +124,6 @@ get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
   user = User.first_or_create({ :uid => auth["uid"]}, {
     :uid => auth["uid"],
-    :created_at => Time.now,
     :access_token => auth["credentials"]["token"],
     :refresh_token => auth["credentials"]["refresh_token"]
   })
