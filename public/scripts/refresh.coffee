@@ -1,14 +1,14 @@
 
-refreshInterval = 60 * 1000 # 60 Seconds
+refreshInterval = 60 * 5 * 1000 # 5 Minutes
 
-refresh ->
-  xhr = new XMLHttpRequest
+handleRefresh = ->
+  document.querySelector(".widget").innerHTML = this.response
+
+refresh = ->
+  xhr = new XMLHttpRequest()
   xhr.onload = handleRefresh
   xhr.open("get", window.location.href, true)
   xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
-  xhr.send
-
-handleRefresh ->
-  document.querySelector(".widget").innerHTML = this.response
+  xhr.send()
 
 setInterval(refresh, refreshInterval)
