@@ -1,8 +1,5 @@
 
-refreshInterval = 60 * 5 * 1000 # 5 Minutes
-
-handleRefresh = ->
-  document.querySelector(".widget").innerHTML = this.response
+refreshInterval = 5000 # 60 * 5 * 1000 # 5 Minutes
 
 refresh = ->
   path = window.location.pathname

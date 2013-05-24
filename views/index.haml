@@ -11,5 +11,5 @@
         - [ :today, :this_month, :last_month ].each do |period|
           .widget-container
             %iframe{ src: "earnings/#{period}", onload: "this.style.opacity = 1" }
-            %button{ onclick: "location.href='panicboard://?url=#{CGI.escape("#{url("/earnings/#{period}")}?token=#{current_user.access_token}")}&panel=diy&sourceDisplayName=#{CGI.escape("AdSense Status Board Widgets")}'" }
+            %button{ onclick: "location.href='panicboard://?url=#{CGI.escape(url("/earnings/#{period}?token=#{current_user.access_token}"))}&panel=diy'" }
               Add to Status Board
