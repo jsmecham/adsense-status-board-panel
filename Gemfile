@@ -53,3 +53,9 @@ gem "google-api-client", "~> 0.7.1", require: "google/api_client"
 # Sentry (for Error Reporting)
 #
 gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", group: :production
+
+#
+# Local Environment Support
+#
+gem "dotenv"
+gem "foreman"

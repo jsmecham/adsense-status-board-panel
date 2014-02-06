@@ -1,5 +1,11 @@
 #
-# Load Dependencies
+# Load local environment variables from the .env file.
+#
+require 'dotenv'
+Dotenv.load
+
+#
+# Load dependencies managed by Bundler.
 #
 require "bundler"
 Bundler.require(:default, ENV["RACK_ENV"] || :development)
