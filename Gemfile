@@ -3,23 +3,23 @@ source "http://rubygems.org"
 
 ruby "2.0.0"
 
+gem "rake"
 gem "rack-ssl", group: :production
 gem "activesupport", require: "active_support/core_ext"
+
+#
+# Persistence
+#
+gem "activerecord"
+gem "sqlite3", group: :development
+gem "pg", group: :production
 
 #
 # Sinatra
 #
 gem "sinatra"
-
-#
-# Persistence
-#
-gem "dm-core"
-gem "dm-migrations"
-gem "dm-timestamps"
-gem "dm-sqlite-adapter", group: :development
-gem "dm-postgres-adapter", group: :production
 gem "sinatra-contrib", require: false
+gem "sinatra-activerecord"
 
 #
 # Assets

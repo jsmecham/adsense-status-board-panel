@@ -2,5 +2,5 @@
 .bundle
 .tm_properties
 *.sublime*
-*.db
+db/*.db
 public/.htaccess

@@ -8,7 +8,7 @@ configure do
 
   set :consumer_key, ENV["GOOGLE_CLIENT_ID"]
   set :consumer_secret, ENV["GOOGLE_CLIENT_SECRET"]
-  set :database, ENV["DATABASE_URL"] || "sqlite3://db/database.db"
+  set :database, ENV["DATABASE_URL"] || "sqlite3:///db/database.db"
   set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
   set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
   set :session_secret, ENV["SESSION_SECRET"] unless ENV["SESSION_SECRET"].nil?
@@ -52,8 +52,9 @@ helpers do
   end
 
   def current_user
-    @current_user ||= User.get(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
 end
 
 # ----------------------------------------------------------------------------
@@ -72,7 +73,7 @@ get "/earnings/:period" do |period|
 
   # Authenticate the User by OAuth Access Token
   if session[:user_id].nil?
-    user = User.first(:access_token => params[:token])
+    user = User.find_by(access_token: params[:token])
     return status 401 if user.nil?
     session[:user_id] = user.id
   end
@@ -113,11 +114,11 @@ end
 
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
-  user = User.first_or_create({ :uid => auth["uid"]}, {
-    :uid => auth["uid"],
-    :access_token => auth["credentials"]["token"],
-    :refresh_token => auth["credentials"]["refresh_token"]
-  })
+  user = User.find_or_create_by(uid: auth["uid"])do |user|
+    user.uid = auth["uid"]
+    user.access_token = auth["credentials"]["token"]
+    user.refresh_token = auth["credentials"]["refresh_token"]
+  end
   session[:user_id] = user.id
   redirect '/'
 end
