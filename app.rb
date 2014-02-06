@@ -48,7 +48,7 @@ helpers do
   end
 
   def adsense
-    @adsense ||= google_client.discovered_api('adsense')
+    @adsense ||= google_client.discovered_api("adsense", "v1.3")
   end
 
   def current_user
