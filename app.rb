@@ -23,8 +23,9 @@ end
 
 # OmniAuth -------------------------------------------------------------------
 
-require 'omniauth'
-use OmniAuth::Strategies::GoogleOauth2, settings.consumer_key, settings.consumer_secret, { :scope => "userinfo.email,adsense.readonly" }
+use OmniAuth::Strategies::GoogleOauth2, settings.consumer_key, settings.consumer_secret, {
+  scope: "userinfo.email,adsense.readonly"
+}
 
 # Google Client --------------------------------------------------------------
 
@@ -34,8 +35,8 @@ helpers do
 
   def initialize_google_client
     client = Google::APIClient.new \
-      :application_name => "AdSense Status Board Widget",
-      :application_version => "1.0 Beta"
+      application_name: "AdSense Status Board Widget",
+      application_version: "1.0 Beta"
     client.authorization.access_token = current_user.access_token
     client.authorization.refresh_token = current_user.refresh_token
     client.authorization.client_id = settings.consumer_key
@@ -59,11 +60,11 @@ end
 
 # ----------------------------------------------------------------------------
 
-get '/' do
+get "/" do
   if current_user
     haml :index
   else
-    redirect '/login'
+    redirect "/login"
   end
 end
 
@@ -92,27 +93,27 @@ get "/earnings/:period" do |period|
 
   # Make an API call
   result = google_client.execute \
-    :api_method => adsense.reports.generate,
-    :parameters => {
-      'startDate' => @start_on.to_s,
-      'endDate' => @end_on.to_s,
-      'metric' => "EARNINGS"
+    api_method: adsense.reports.generate,
+    parameters: {
+      "startDate" => @start_on.to_s,
+      "endDate" => @end_on.to_s,
+      "metric" => "EARNINGS"
     }
 
   response = JSON.parse(result.body)
   @total_earnings = response["totals"][0]
 
   if request.xhr?
-    haml :earnings, :layout => false
+    haml :earnings, layout: false
   else
-    haml :earnings, :layout => :widget
+    haml :earnings, layout: :widget
   end
 
 end
 
 # Authentication -------------------------------------------------------------
 
-get '/auth/:name/callback' do
+get "/auth/:name/callback" do
   auth = request.env["omniauth.auth"]
   user = User.find_or_create_by(uid: auth["uid"])do |user|
     user.uid = auth["uid"]
@@ -120,7 +121,7 @@ get '/auth/:name/callback' do
     user.refresh_token = auth["credentials"]["refresh_token"]
   end
   session[:user_id] = user.id
-  redirect '/'
+  redirect "/"
 end
 
 get "/login" do
@@ -129,7 +130,7 @@ end
 
 get "/logout" do
   session[:user_id] = nil
-  redirect '/'
+  redirect "/"
 end
 
 # Process Assets -------------------------------------------------------------
