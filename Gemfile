@@ -10,7 +10,6 @@ gem "activesupport", require: "active_support/core_ext"
 # Sinatra
 #
 gem "sinatra"
-gem "sinatra-contrib"
 
 #
 # Persistence
@@ -20,6 +19,7 @@ gem "dm-migrations"
 gem "dm-timestamps"
 gem "dm-sqlite-adapter", group: :development
 gem "dm-postgres-adapter", group: :production
+gem "sinatra-contrib", require: false
 
 #
 # Assets
@@ -31,15 +31,15 @@ gem "coffee-script"
 #
 # Authentication
 #
-gem "omniauth"
+gem "omniauth", require: "omniauth"
 gem "omniauth-google-oauth2"
 
 #
 # Google API Client
 #
-gem "google-api-client", "~> 0.6.3", require: "google/api_client"
+gem "google-api-client", "~> 0.7.1", require: "google/api_client"
 
 #
 # Sentry (for Error Reporting)
 #
-gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git"
+gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", group: :production

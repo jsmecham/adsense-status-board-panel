@@ -1,15 +1,21 @@
 #
 # Load Dependencies
 #
-Bundler.require(:default, ENV["RACK_ENV"])
+require "bundler"
+Bundler.require(:default, ENV["RACK_ENV"] || :development)
 
 #
-# Force SSL to be used, in Production.
+# Allow code to be reloaded in Development.
+#
+require "sinatra/reloader" if development?
+
+#
+# Force SSL to be used in Production.
 #
 use Rack::SSL if production?
 
 #
-# Monitor for errors using Sentry, in Production.
+# Monitor for errors using Sentry in Production.
 #
 if ENV["SENTRY_DSN"]
   Raven.configure do |config|

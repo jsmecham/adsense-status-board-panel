@@ -2,40 +2,28 @@
 # Google AdSense Widget for Status Board
 #
 
-require "sinatra/reloader" if development?
-
 # Configuration --------------------------------------------------------------
 
 configure do
 
   set :consumer_key, ENV["GOOGLE_CLIENT_ID"]
   set :consumer_secret, ENV["GOOGLE_CLIENT_SECRET"]
-  set :database_url, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/database.db"
+  set :database, ENV["DATABASE_URL"] || "sqlite3://db/database.db"
   set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
   set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
   set :session_secret, ENV["SESSION_SECRET"] unless ENV["SESSION_SECRET"].nil?
 
 end
 
-# DataMapper / Model Setup ---------------------------------------------------
+# Models ---------------------------------------------------------------------
 
-DataMapper.setup(:default, settings.database_url)
-
-class User
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :uid, String
-  property :access_token, String, length: 255
-  property :refresh_token, String, length: 255
-  property :created_at, DateTime
-  property :updated_at, DateTime
+class User < ActiveRecord::Base
+  # TODO Add Validations...
 end
-
-DataMapper.finalize.auto_upgrade!
 
 # OmniAuth -------------------------------------------------------------------
 
+require 'omniauth'
 use OmniAuth::Strategies::GoogleOauth2, settings.consumer_key, settings.consumer_secret, { :scope => "userinfo.email,adsense.readonly" }
 
 # Google Client --------------------------------------------------------------
@@ -115,7 +103,7 @@ get "/earnings/:period" do |period|
 
   if request.xhr?
     haml :earnings, :layout => false
-  else 
+  else
     haml :earnings, :layout => :widget
   end
 
