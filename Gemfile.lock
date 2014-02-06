@@ -59,6 +59,7 @@ GEM
     i18n (0.6.9)
     jwt (0.1.11)
       multi_json (>= 1.5)
+    kgio (2.9.1)
     launchy (2.4.2)
       addressable (~> 2.3)
     minitest (4.7.5)
@@ -90,6 +91,8 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-timeout (0.0.4)
+    raindrops (0.12.0)
     rake (10.1.1)
     retriable (1.4.1)
     sass (3.2.14)
@@ -117,6 +120,10 @@ GEM
       atomic
     tilt (1.4.1)
     tzinfo (0.3.38)
+    unicorn (4.8.2)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     uuidtools (2.1.4)
 
 PLATFORMS
@@ -132,6 +139,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   rack-ssl
+  rack-timeout
   rake
   sass
   sentry-raven!
@@ -139,3 +147,4 @@ DEPENDENCIES
   sinatra-activerecord
   sinatra-contrib
   sqlite3
+  unicorn

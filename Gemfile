@@ -4,8 +4,18 @@ source "http://rubygems.org"
 ruby "2.0.0"
 
 gem "rake"
-gem "rack-ssl", group: :production
 gem "activesupport", require: "active_support/core_ext"
+
+#
+# Unicorn App Server
+#
+gem "unicorn"
+
+#
+# Rack Middleware
+#
+gem "rack-timeout"
+gem "rack-ssl", group: :production
 
 #
 # Persistence

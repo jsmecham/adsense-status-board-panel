@@ -10,6 +10,13 @@ Bundler.require(:default, ENV["RACK_ENV"] || :development)
 require "sinatra/reloader" if development?
 
 #
+# Restrict each request to no more than 10 seconds, per
+# Heroku's recommendations.
+#
+use Rack::Timeout
+Rack::Timeout.timeout = 10
+
+#
 # Force SSL to be used in Production.
 #
 use Rack::SSL if production?
