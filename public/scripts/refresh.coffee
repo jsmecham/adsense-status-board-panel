@@ -6,8 +6,6 @@ refresh = ->
   queryString = window.location.search.substring(1)
   queryString = queryString.replace("/", "")
 
-  alert(window.location.href + " " + path + " " + queryString)
-
   $.get path, queryString, (response) ->
     $(".widget").html(response)
 
