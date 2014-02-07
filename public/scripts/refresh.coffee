@@ -1,5 +1,5 @@
 
-refreshInterval = 5000 # 60 * 5 * 1000 # 5 Minutes
+refreshInterval = 60 * 5 * 1000 # 5 Minutes
 
 refresh = ->
   path = window.location.pathname
