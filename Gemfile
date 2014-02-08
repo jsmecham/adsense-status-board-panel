@@ -39,12 +39,6 @@ gem "sass"
 gem "coffee-script"
 
 #
-# Authentication
-#
-gem "omniauth", require: "omniauth"
-gem "omniauth-google-oauth2"
-
-#
 # Google API Client
 #
 gem "google-api-client", "~> 0.7.1", require: "google/api_client"
