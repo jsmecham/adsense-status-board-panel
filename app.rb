@@ -53,7 +53,7 @@ helpers do
 
   def user_credentials
     @authorization ||= (
-      auth = settings.api_client.authorization.dup
+      auth = settings.client.authorization.dup
       auth.redirect_uri = to("/auth/callback")
       auth.update_token!(session)
       auth
@@ -111,7 +111,7 @@ get "/earnings/:period" do |period|
   end
 
   # Make an API call
-  result = settings.api_client.execute \
+  result = settings.client.execute \
     api_method: settings.adsense.reports.generate,
     parameters: {
       "startDate" => @start_on.to_s,
