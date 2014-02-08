@@ -53,7 +53,7 @@ helpers do
 
   def user_credentials
     @authorization ||= (
-      auth = api_client.authorization.dup
+      auth = settings.api_client.authorization.dup
       auth.redirect_uri = to("/auth/callback")
       auth.update_token!(session)
       auth
