@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   before_create do |user|
     require 'securerandom'
-    user.auth_token = SecureRandom.urlsafe_base64(255)
+    user.auth_token = SecureRandom.urlsafe_base64(160)
   end
 
   def session
