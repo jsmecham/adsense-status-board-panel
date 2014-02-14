@@ -10,11 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205224108) do
+ActiveRecord::Schema.define(version: 20140214010719) do
 
   create_table "users", force: true do |t|
     t.string   "uid"
+    t.string   "auth_token"
     t.string   "access_token"
+    t.integer  "access_token_expires_in"
+    t.datetime "access_token_issued_at"
     t.string   "refresh_token"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -40,7 +40,21 @@ end
 # Models ---------------------------------------------------------------------
 
 class User < ActiveRecord::Base
-  # TODO Add Validations...
+
+  before_create do |user|
+    require 'securerandom'
+    user.auth_token = SecureRandom.urlsafe_base64(255)
+  end
+
+  def session
+    {
+      refresh_token: self.refresh_token,
+      access_token: self.access_token,
+      expires_in: self.access_token_expires_in,
+      issued_at: self.access_token_issued_at
+    }
+  end
+
 end
 
 # Google Client --------------------------------------------------------------
@@ -48,14 +62,20 @@ end
 helpers do
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= (
+      if session[:user_id]
+        User.find(session[:user_id])
+      elsif params[:auth_token]
+        User.find_by(auth_token: params[:auth_token])
+      end
+    )
   end
 
-  def user_credentials
+  def authorization
     @authorization ||= (
       auth = settings.client.authorization.dup
       auth.redirect_uri = to("/auth/callback")
-      auth.update_token!(session)
+      auth.update_token!(current_user.session) if current_user
       auth
     )
   end
@@ -65,18 +85,16 @@ end
 # Filters --------------------------------------------------------------------
 
 before "/earnings/*" do
-  # Ensure user has authorized the app
-  unless user_credentials.access_token
-    redirect "/login"
-  end
+  redirect "/login" unless current_user
 end
 
 after do
-  # Serialize the access/refresh token to the session
-  session[:access_token] = user_credentials.access_token
-  session[:refresh_token] = user_credentials.refresh_token
-  session[:expires_in] = user_credentials.expires_in
-  session[:issued_at] = user_credentials.issued_at
+  return unless current_user
+  current_user.update_attributes! \
+    access_token: authorization.access_token,
+    refresh_token: authorization.refresh_token,
+    access_token_expires_in: authorization.expires_in,
+    access_token_issued_at: authorization.issued_at
 end
 
 get "/" do
@@ -90,13 +108,6 @@ end
 # Earnings -------------------------------------------------------------------
 
 get "/earnings/:period" do |period|
-
-  # # Authenticate the User by OAuth Access Token
-  # if session[:user_id].nil?
-  #   user = User.find_by(access_token: params[:token])
-  #   return status 401 if user.nil?
-  #   session[:user_id] = user.id
-  # end
 
   # Period
   if period == "this_month"
@@ -118,7 +129,7 @@ get "/earnings/:period" do |period|
       "endDate" => @end_on.to_s,
       "metric" => "EARNINGS"
     },
-    authorization: user_credentials
+    authorization: authorization
 
   response = JSON.parse(result.body)
   # return response.inspect
@@ -150,19 +161,21 @@ end
 
 
 get "/auth" do
-  redirect user_credentials.authorization_uri.to_s, 303
+  redirect authorization.authorization_uri.to_s, 303
 end
 
 get "/auth/callback" do
 
   # Exchange token
-  user_credentials.code = params[:code] if params[:code]
-  user_credentials.fetch_access_token!
+  authorization.code = params[:code] if params[:code]
+  authorization.fetch_access_token!
 
-  uid = user_credentials.decoded_id_token["id"]
+  uid = authorization.decoded_id_token["id"]
   user = User.find_or_create_by(uid: uid) do |user|
-    user.access_token = user_credentials.access_token
-    user.refresh_token = user_credentials.refresh_token
+    user.access_token = authorization.access_token
+    user.access_token_expires_in = authorization.expires_in
+    user.access_token_issued_at = authorization.issued_at
+    user.refresh_token = authorization.refresh_token
   end
   session[:user_id] = user.id
 
