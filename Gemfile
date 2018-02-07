@@ -22,7 +22,7 @@ gem "rack-ssl", group: :production
 #
 gem "activerecord", "~> 4.2.10"
 gem "sqlite3", group: :development
-gem "pg", group: :production
+gem "pg", "~> 0.15", group: :production
 
 #
 # Sinatra

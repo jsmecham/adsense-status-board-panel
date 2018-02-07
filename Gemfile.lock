@@ -72,7 +72,7 @@ GEM
     multipart-post (2.0.0)
     mustermann (1.0.1)
     os (0.9.6)
-    pg (1.0.0)
+    pg (0.21.0)
     public_suffix (3.0.1)
     puma (3.11.2)
     rack (2.0.4)
@@ -130,7 +130,7 @@ DEPENDENCIES
   foreman
   google-api-client (~> 0.8.6)
   haml
-  pg
+  pg (~> 0.15)
   puma
   rack-ssl
   rack-timeout
