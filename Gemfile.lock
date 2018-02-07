@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/getsentry/raven-ruby.git
-  revision: 2d03001ae655b4a19214aceb7e0d041b7e9185cb
-  specs:
-    sentry-raven (0.7.1)
-      faraday (>= 0.7.6)
-      hashie (>= 1.1.0)
-      uuidtools
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -59,7 +50,6 @@ GEM
       uuidtools (>= 2.1.0)
     haml (4.0.5)
       tilt
-    hashie (2.0.5)
     i18n (0.6.9)
     jwt (0.1.11)
       multi_json (>= 1.5)
@@ -129,7 +119,6 @@ DEPENDENCIES
   rack-timeout
   rake
   sass
-  sentry-raven!
   sinatra
   sinatra-activerecord
   sinatra-contrib
