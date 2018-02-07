@@ -10,7 +10,7 @@ configure do
 
   set :consumer_key, ENV["GOOGLE_CLIENT_ID"]
   set :consumer_secret, ENV["GOOGLE_CLIENT_SECRET"]
-  set :database, ENV["DATABASE_URL"] || "sqlite3:///db/database.db"
+  set :database, ENV["DATABASE_URL"] || "sqlite3://#{URI.escape(File.dirname(__FILE__))}/db/database.db"
   set :styles_path, "#{File.dirname(__FILE__)}/public/styles"
   set :scripts_path, "#{File.dirname(__FILE__)}/public/scripts"
   set :session_secret, ENV["SESSION_SECRET"] unless ENV["SESSION_SECRET"].nil?

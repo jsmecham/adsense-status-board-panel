@@ -4,7 +4,7 @@ source "http://rubygems.org"
 ruby "~> 2.4.3"
 
 gem "rake"
-gem "activesupport", require: "active_support/core_ext"
+gem "activesupport", "~> 4.2.10"
 
 #
 # Puma App Server
@@ -20,7 +20,7 @@ gem "rack-ssl", group: :production
 #
 # Persistence
 #
-gem "activerecord"
+gem "activerecord", "~> 4.2.10"
 gem "sqlite3", group: :development
 gem "pg", group: :production
 
@@ -41,7 +41,7 @@ gem "coffee-script"
 #
 # Google API Client
 #
-gem "google-api-client", "~> 0.7.1", require: "google/api_client"
+gem "google-api-client", "~> 0.8.6", require: "google/api_client"
 
 #
 # Local Environment Support
