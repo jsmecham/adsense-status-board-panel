@@ -7,9 +7,9 @@ gem "rake"
 gem "activesupport", require: "active_support/core_ext"
 
 #
-# Unicorn App Server
+# Puma App Server
 #
-gem "unicorn"
+gem "puma"
 
 #
 # Rack Middleware
