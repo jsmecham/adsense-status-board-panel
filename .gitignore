@@ -1,7 +1,5 @@
 .DS_Store
-.bundle
 .env
-.tm_properties
 *.sublime*
 db/*.db
 public/.htaccess
