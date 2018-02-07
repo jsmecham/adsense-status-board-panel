@@ -1,11 +1,11 @@
-# AdSense Widget for Status Board
+# AdSense Status Board Panel
 
 This Sinatra app can be used to pull in your earnings from Google AdSense
 and display them on your [Status Board](http://panic.com/statusboard).
 
 ## Configuration
 
-To configure your own instance of this widget, you should be familiar with
+To configure your own instance of this panel, you should be familiar with
 running Sinatra or Ruby on Rails instances. Of course, if you are not familiar
 with setting up and running a Sinatra web application, the easiest route is to
 use [Heroku](http://heroku.com). Please reference [this tutorial](https://devcenter.heroku.com/articles/git)

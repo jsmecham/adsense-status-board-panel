@@ -1,5 +1,5 @@
 #
-# Google AdSense Widget for Status Board
+# Google AdSense Status Board Panel
 #
 
 # Configuration --------------------------------------------------------------
@@ -19,7 +19,7 @@ configure do
   # Initialize the Google Client
   #
   client = Google::APIClient.new \
-    application_name: "AdSense Status Board Widget",
+    application_name: "AdSense Status Board Panel",
     application_version: "1.0 Beta"
   client.authorization.client_id = settings.consumer_key
   client.authorization.client_secret = settings.consumer_secret
