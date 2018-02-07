@@ -1,7 +1,7 @@
 
 source "http://rubygems.org"
 
-ruby "2.0.0"
+ruby "~> 2.4.3"
 
 gem "rake"
 gem "activesupport", require: "active_support/core_ext"
